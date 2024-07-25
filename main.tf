@@ -1,6 +1,6 @@
 # Pulls the image
 resource "docker_image" "gitlab" {
-  name = "gitlab/gitlab-ce:latest"
+  name = "gitlab/gitlab-ee:latest"
 }
 
 # Create Gitlab Network
@@ -13,6 +13,7 @@ resource "docker_container" "Gitlab" {
   image    = docker_image.gitlab.image_id
   name     = "Gitlab"
   restart  = "always
+  env      = ["EXTERNAL_URL=${var.url}"]
   volumes {
     host_path      = "${var.GITLAB_HOME}/config"
     container_path = "/etc/gitlab"
@@ -36,9 +37,5 @@ resource "docker_container" "Gitlab" {
 }
 
 
-# docker-compose.yml
 
-    environment:
-      GITLAB_OMNIBUS_CONFIG: |
-        external_url 'http://localhost'
 
