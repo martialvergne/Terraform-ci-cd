@@ -12,7 +12,7 @@ resource "docker_network" "gitlab" {
 resource "docker_container" "Gitlab" {
   image    = docker_image.gitlab.image_id
   name     = "Gitlab"
-  restart  = "always
+  restart  = "always"
   env      = ["EXTERNAL_URL=${var.url}"]
   volumes {
     host_path      = "${var.GITLAB_HOME}/config"
